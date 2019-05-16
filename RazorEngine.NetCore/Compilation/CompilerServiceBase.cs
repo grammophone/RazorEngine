@@ -20,6 +20,7 @@
     using Templating;
     using RazorEngine.Compilation.ReferenceResolver;
     using System.Security;
+    using RazorEngine.Helpers;
 
     /// <summary>
     /// Provides a base implementation of a compiler service.
@@ -267,6 +268,23 @@
         /// <returns>The generator result.</returns>
         [SecurityCritical]
         private string GetGeneratorResult(IEnumerable<string> namespaces, TypeContext context)
+        {
+            return RazorLanguageHelper.GetGeneratedCode(DynamicTemplateNamespace,
+                context.TemplateContent.Template,
+                context.ClassName,
+                BuildTypeName(context.TemplateType, context.ModelType),
+                context.TemplateContent.TemplateFile
+            );
+        }
+
+        /// <summary>
+        /// [to delete] Gets the generator result.
+        /// </summary>
+        /// <param name="host">The razor engine host.</param>
+        /// <param name="context">The compile context.</param>
+        /// <returns>The generator result.</returns>
+        [SecurityCritical]
+        private string GetGeneratorResultBak(IEnumerable<string> namespaces, TypeContext context)
         {
 #pragma warning disable 612, 618
             var razorEngine = RazorEngine.Create(builder =>
