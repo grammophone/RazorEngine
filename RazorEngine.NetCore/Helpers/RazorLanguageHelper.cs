@@ -51,6 +51,13 @@ namespace RazorEngine.Helpers
                 });
                 builder.SetNamespace(dynamicTemplateNamespace); // define a namespace for the Template class
                 builder.SetBaseType(classBaseType);
+                builder.AddDefaultImports("@using System",
+                    "@using System.Threading.Tasks",
+                    "@using System.Collections.Generic",
+                    "@using System.Linq",
+                    "@using System.Text",
+                    "@using RazorEngine",
+                    "@using RazorEngine.Templating");
             });
             string razorRelativePath;
             string randomRazorFileFullPath = null;
@@ -75,8 +82,9 @@ namespace RazorEngine.Helpers
                 }
                 catch (Exception) { }
             }
-            var razorCompiledItemAssembly = typeof(RazorCompiledItemAttribute).Assembly;
-            //手动加载程序集，防止编译 Razor 类时找不到 DLL
+            //Manual loading of assemblies to prevent DLLs from being lost when compiling classes
+            AppDomain.CurrentDomain.Load(typeof(RazorCompiledItemAttribute).Assembly.FullName);
+            //手动加载程序集，防止编译的类时找不到 DLL
             return cs.GeneratedCode;
         }
     }

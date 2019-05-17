@@ -22,6 +22,7 @@
     using System.Security;
     using RazorEngine.Helpers;
     using Microsoft.AspNetCore.Razor.Language.Extensions;
+    using Microsoft.AspNetCore.Razor.Hosting;
 
     /// <summary>
     /// Provides a base implementation of a compiler service.
@@ -267,16 +268,16 @@
         /// <param name="host">The razor engine host.</param>
         /// <param name="context">The compile context.</param>
         /// <returns>The generator result.</returns>
-        //[SecurityCritical]
-        //private string GetGeneratorResultDelete(IEnumerable<string> namespaces, TypeContext context)
-        //{
-        //    return RazorLanguageHelper.GetGeneratedCode(DynamicTemplateNamespace,
-        //        context.TemplateContent.Template,
-        //        context.ClassName,
-        //        BuildTypeName(context.TemplateType, context.ModelType),
-        //        context.TemplateContent.TemplateFile
-        //    );
-        //}
+        [SecurityCritical]
+        private string GetGeneratorResult(IEnumerable<string> namespaces, TypeContext context)
+        {
+            return RazorLanguageHelper.GetGeneratedCode(DynamicTemplateNamespace,
+                context.TemplateContent.Template,
+                context.ClassName,
+                BuildTypeName(context.TemplateType, context.ModelType),
+                context.TemplateContent.TemplateFile
+            );
+        }
 
         /// <summary>
         /// [to delete] Gets the generator result.
@@ -285,9 +286,11 @@
         /// <param name="context">The compile context.</param>
         /// <returns>The generator result.</returns>
         [SecurityCritical]
-        private string GetGeneratorResult(IEnumerable<string> namespaces, TypeContext context)
+        private string GetGeneratorResultBak(IEnumerable<string> namespaces, TypeContext context)
         {
 #pragma warning disable 612, 618
+            var razorCompiledItemAssembly = typeof(RazorCompiledItemAttribute).Assembly;
+            //手动加载程序集，防止编译 Razor 类时找不到 DLL
             var razorEngine = RazorEngine.Create(builder =>
             {
                 InheritsDirective.Register(builder);
