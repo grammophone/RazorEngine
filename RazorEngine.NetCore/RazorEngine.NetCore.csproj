@@ -17,11 +17,11 @@
     <AssemblyName>RazorEngine.NetCore.ZuLiang</AssemblyName>
     <PackageTags>RazorEngine;aspnetcore;NetCore</PackageTags>
     <Authors>Connie Yau, HermanHo, Fouad Messaia,Zuliang Liu(China)</Authors>
-    <Description>Fork from https://github.com/hermanho/RazorEngine, But Fixed Bug that Razor string does not support @using and @inherits, etc. </Description>
+    <Description>Fork from https://github.com/hermanho/RazorEngine, But Fixed Bug that Razor string does not support @using and @inherits and @functions and @section, etc. </Description>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/liuzuliang/RazorEngine</RepositoryUrl>
     <PackageProjectUrl>https://github.com/liuzuliang/RazorEngine</PackageProjectUrl>
-    <Version>2.2.3</Version>
+    <Version>2.2.3.1</Version>
     <Copyright>RazorEngine Copyright © RazorEngine Project 2011-2018</Copyright>
     <Company>RazorEngine</Company>
     <Product>RazorEngine</Product>

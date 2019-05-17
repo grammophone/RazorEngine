@@ -43,6 +43,8 @@ namespace RazorEngine.Helpers
             RazorProjectEngine engine = RazorProjectEngine.Create(RazorConfiguration.Default, fs, (builder) =>
             {
                 InheritsDirective.Register(builder);
+                FunctionsDirective.Register(builder);
+                SectionDirective.Register(builder);
                 builder.ConfigureClass((document, @class) =>
                 {
                     @class.ClassName = generatedCSharpClassName;
