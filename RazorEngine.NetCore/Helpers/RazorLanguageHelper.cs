@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Razor.Language.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace RazorEngine.Helpers
@@ -28,7 +29,6 @@ namespace RazorEngine.Helpers
             string classBaseType,
             string templateFile = null)
         {
-            
             string systemPath = Directory.GetCurrentDirectory();
             string path = null;
             if (string.IsNullOrWhiteSpace(templateFile))
@@ -73,7 +73,7 @@ namespace RazorEngine.Helpers
             }
             RazorProjectItem item = fs.GetItem(razorRelativePath);
             RazorCodeDocument codeDocument = engine.Process(item);
-            RazorCSharpDocument cs = codeDocument.GetCSharpDocument();
+            RazorCSharpDocument csharpDocument = codeDocument.GetCSharpDocument();
             if (!string.IsNullOrEmpty(randomRazorFileFullPath))
             {
                 try
@@ -82,10 +82,15 @@ namespace RazorEngine.Helpers
                 }
                 catch (Exception) { }
             }
+            if (csharpDocument.Diagnostics.Any())
+            {
+                var diagnostics = string.Join(Environment.NewLine, csharpDocument.Diagnostics);
+                throw new InvalidOperationException($"One or more parse errors encountered. This will not prevent the generator from continuing: {Environment.NewLine}{diagnostics}.");
+            }
             //Manual loading of assemblies to prevent DLLs from being lost when compiling classes
             AppDomain.CurrentDomain.Load(typeof(RazorCompiledItemAttribute).Assembly.FullName);
             //手动加载程序集，防止编译的类时找不到 DLL
-            return cs.GeneratedCode;
+            return csharpDocument.GeneratedCode;
         }
     }
 }

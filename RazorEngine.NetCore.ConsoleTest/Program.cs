@@ -6,7 +6,7 @@ namespace RazorEngine.NetCore.ConsoleTest
 {
     public class UserQueryCondition
     {
-        public string Name { get; set; }
+        public string UserName { get; set; }
     }
 
     class Program
@@ -17,10 +17,10 @@ namespace RazorEngine.NetCore.ConsoleTest
             // https://github.com/liuzuliang/RazorEngine
             // Fork From https://github.com/fouadmess/RazorEngine, 
             // But Fixed Bug that Razor string does not support @using and @inherits, etc.
-
-string template = @"
+            //@inherits RazorEngine.Templating.TemplateBase<UserQueryCondition>
+            string template = @"
         @using RazorEngine.NetCore.ConsoleTest
-        @inherits RazorEngine.Templating.TemplateBase<UserQueryCondition>
+        @inherits RazorEngine.Templating.TemplateBase<dynamic>
         @{
             string name = ""Admin"";
         }
@@ -35,11 +35,11 @@ string template = @"
                 return DateTime.Now.ToString(""yyyy-MM-dd HH:mm:ss"");
             }
         }
-        Hello @Model.Name, welcome to RazorEngine! @GetUserName(name) , Current Time: @GetCurrentTime()
+        Hello @Model.UserName, welcome to RazorEngine! @GetUserName(name) , Current Time: @GetCurrentTime()
     ";
 var result = Engine.Razor.RunCompile(template, "templateKey", null, new UserQueryCondition
 {
-    Name = "World, perfect !"
+    UserName = "World, perfect !"
 });
 Console.WriteLine("Template: {0}{0}\t{1}", Environment.NewLine, template);
 Console.WriteLine("{0}{0}{0}", Environment.NewLine);
