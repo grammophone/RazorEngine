@@ -1,3 +1,38 @@
+# About
+
+Fork from https://github.com/hermanho/RazorEngine, But Fixed Bug that Razor string does not support @using and @inherits and @functions and @section, etc.
+
+# Documentation
+
+```csharp
+string template = @"
+        @using RazorEngine.NetCore.ConsoleTest
+        @inherits RazorEngine.Templating.TemplateBase<UserQueryCondition>
+        @{
+            string name = ""Admin"";
+        }
+        @functions
+        {
+            public string GetUserName(string name)
+            {
+                return ""Greate "" + name;
+            }
+            public string GetCurrentTime()
+            {
+                return DateTime.Now.ToString(""yyyy-MM-dd HH:mm:ss"");
+            }
+        }
+        Hello @Model.Name, welcome to RazorEngine! @GetUserName(name) , Current Time: @GetCurrentTime()
+    ";
+var result = Engine.Razor.RunCompile(template, "templateKey", null, new UserQueryCondition
+{
+    Name = "World, perfect !"
+});
+Console.WriteLine("Template: {0}{0}\t{1}", Environment.NewLine, template);
+Console.WriteLine("{0}{0}{0}", Environment.NewLine);
+Console.WriteLine("Result: {0}{0}\t{1}", Environment.NewLine, result);
+```
+
 # RazorEngine
 
 [![Join the chat at https://gitter.im/Antaris/RazorEngine](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Antaris/RazorEngine?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
