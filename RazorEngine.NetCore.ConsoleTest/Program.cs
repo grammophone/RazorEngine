@@ -17,6 +17,7 @@ namespace RazorEngine.NetCore.ConsoleTest
             // https://github.com/liuzuliang/RazorEngine
             // Fork From https://github.com/fouadmess/RazorEngine, 
             // But Fixed Bug that Razor string does not support @using and @inherits, etc.
+
             //@inherits RazorEngine.Templating.TemplateBase<UserQueryCondition>
             string template = @"
         @using RazorEngine.NetCore.ConsoleTest
@@ -43,8 +44,7 @@ var result = Engine.Razor.RunCompile(template, "templateKey", null, new UserQuer
 {
     UserName = "World, perfect !"
 });
-Console.WriteLine("Template: {0}{0}\t{1}", Environment.NewLine, template);
-Console.WriteLine("{0}{0}{0}", Environment.NewLine);
+Console.WriteLine("Template: {0}{0}\t{1}{0}{0}", Environment.NewLine, template);
 Console.WriteLine("Result: {0}{0}\t{1}", Environment.NewLine, result);
         }
     }
