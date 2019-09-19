@@ -22,13 +22,15 @@ namespace RazorEngine.NetCore.ConsoleTest
         @using RazorEngine.NetCore.ConsoleTest
         @inherits RazorEngine.Templating.TemplateBase<dynamic>
         @{
-            string name = ""Admin"";
+            const string name = ""Admin"";
         }
         @functions
         {
+            private int Age = 18;
+
             public string GetUserName(string name)
             {
-                return ""Greate "" + name;
+                return ""Greate "" + name + "" "" + Age;
             }
             public string GetCurrentTime()
             {

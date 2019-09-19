@@ -73,6 +73,7 @@ namespace RazorEngine.Helpers
             }
             RazorProjectItem item = fs.GetItem(razorRelativePath);
             RazorCodeDocument codeDocument = engine.Process(item);
+            
             RazorCSharpDocument csharpDocument = codeDocument.GetCSharpDocument();
             if (!string.IsNullOrEmpty(randomRazorFileFullPath))
             {
