@@ -42,10 +42,12 @@ namespace RazorEngine.Helpers
             RazorProjectFileSystem fs = RazorProjectFileSystem.Create(path); // or '.'
             RazorProjectEngine engine = RazorProjectEngine.Create(RazorConfiguration.Default, fs, (builder) =>
             {
-                InheritsDirective.Register(builder);
-                FunctionsDirective.Register(builder);
-                SectionDirective.Register(builder);
-                builder.ConfigureClass((document, @class) =>
+#if !NETCORE3
+							InheritsDirective.Register(builder);
+							FunctionsDirective.Register(builder);
+							SectionDirective.Register(builder);
+#endif
+							builder.ConfigureClass((document, @class) =>
                 {
                     @class.ClassName = generatedCSharpClassName;
                 });
