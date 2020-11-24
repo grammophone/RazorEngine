@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net461;netcoreapp3.0;</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net461;netcoreapp3.1;</TargetFrameworks>
     <DefineConstants>$(DefineConstants);RAZOR4</DefineConstants>
     <DefineConstants>$(DefineConstants);NO_APPDOMAIN;NO_CODEDOM;NO_CONFIGURATION;NETCORE</DefineConstants>
   </PropertyGroup>
 
-	<PropertyGroup Condition="$(TargetFramework) == 'netcoreapp3.0'">
+	<PropertyGroup Condition="$(TargetFramework) == 'netcoreapp3.1'">
 		<DefineConstants>$(DefineConstants);NETCORE3</DefineConstants>
 	</PropertyGroup>
 
@@ -42,7 +42,7 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
   </ItemGroup>
 
-	<ItemGroup Condition="$(TargetFramework) != 'netcoreapp3.0'">
+	<ItemGroup Condition="$(TargetFramework) != 'netcoreapp3.1'">
 		<PackageReference Include="System.Security.Permissions" Version="4.5.0" />
 	</ItemGroup>
 
